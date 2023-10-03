@@ -82,4 +82,14 @@ public class AuthController {
         request.getSession().setAttribute("auth", savedAuth);
         return "redirect:/";
     }
+
+    @GetMapping("/logout.do")
+    public String logout(HttpServletRequest request) {
+        Auth auth = (Auth) request.getSession().getAttribute("auth");
+        if (auth == null) {
+            return "redirect:/auth/login";
+        }
+        request.getSession().removeAttribute("auth");
+        return "redirect:/auth/login";
+    }
 }
