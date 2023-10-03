@@ -1,5 +1,6 @@
 package com.example.formloginwithoutsecurity.controller;
 
+import com.example.formloginwithoutsecurity.common.MessageUtil;
 import com.example.formloginwithoutsecurity.entity.Auth;
 import com.example.formloginwithoutsecurity.service.AuthService;
 import com.example.formloginwithoutsecurity.vo.AuthVO;
@@ -53,20 +54,11 @@ public class AuthController {
         try {
             authService.signUp(authVO);
         } catch (IllegalArgumentException e) {
-            model.addAttribute("message", "회원가입에 실패하였습니다.");
-            model.addAttribute("retType", "message");
-            model.addAttribute("retUrl", "/auth/signUp");
-            return "message";
+            return MessageUtil.createMessage("회원가입에 실패하였습니다.", "/auth/signUp", model);
         } catch (EntityExistsException e) {
-            model.addAttribute("message", "이미 존재하는 아이디입니다.");
-            model.addAttribute("retType", "message");
-            model.addAttribute("retUrl", "/auth/signUp");
-            return "message";
+            return MessageUtil.createMessage("이미 존재하는 아이디입니다.", "/auth/signUp", model);
         }
-        model.addAttribute("message", "회원가입에 성공하였습니다.");
-        model.addAttribute("retType", "message");
-        model.addAttribute("retUrl", "/auth/login");
-        return "message";
+        return MessageUtil.createMessage("회원가입에 성공하였습니다.", "/auth/login", model);
     }
 
     /**
@@ -83,10 +75,7 @@ public class AuthController {
         try {
             savedAuth = authService.login(authVO);
         } catch (Exception e) {
-            model.addAttribute("message", "로그인에 실패하였습니다.");
-            model.addAttribute("retType", "message");
-            model.addAttribute("retUrl", "/auth/login");
-            return "message";
+            return MessageUtil.createMessage("로그인에 실패하였습니다.", "/auth/login", model);
         }
         request.getSession().setAttribute("auth", savedAuth);
         return "redirect:/";

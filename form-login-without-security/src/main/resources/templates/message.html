@@ -6,13 +6,10 @@
 </head>
 <script th:inline="javascript">
     const message = [[${message}]];
-    const retType = [[${retType}]];
     const retUrl = [[${retUrl}]];
 
-    if (retType === "message") {
-        alert(message);
-        location.href = retUrl;
-    }
+    alert(message);
+    location.href = retUrl;
 </script>
 <body>
 
