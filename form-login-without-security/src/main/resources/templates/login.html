@@ -11,6 +11,10 @@
     <script crossorigin="anonymous"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="http://www-cs-students.stanford.edu/~tjw/jsbn/rsa.js" type="text/javascript"></script>
+    <script src="http://www-cs-students.stanford.edu/~tjw/jsbn/jsbn.js" type="text/javascript"></script>
+    <script src="http://www-cs-students.stanford.edu/~tjw/jsbn/prng4.js" type="text/javascript"></script>
+    <script src="http://www-cs-students.stanford.edu/~tjw/jsbn/rng.js" type="text/javascript"></script>
 </head>
 <style>
     html {
@@ -34,6 +38,13 @@
     function login() {
         const frm = $("#frm");
         frm.attr("action", "/auth/login.do");
+
+        // 비밀번호 암호화
+        const pwd = $("#userPwd").val();
+        const rsa = new RSAKey();
+        rsa.setPublic($("#RSAModules").val(), $("#RSAExponent").val());
+        $("#userPwd").val(rsa.encrypt(pwd));
+
         frm.submit();
     }
 </script>
@@ -41,6 +52,8 @@
 <div class="border p-4 rounded" style="width: 500px; height: 500px; background: white;">
     <h1 class="text-center" style="color: #eeaeca">LOGIN</h1>
     <form class="mt-4" id="frm" method="post">
+        <input id="RSAModules" th:value="${RSAModulus}" type="hidden">
+        <input id="RSAExponent" th:value="${RSAExponent}" type="hidden">
         <div class="mb-3">
             <label class="form-label" for="userId">아이디</label>
             <input aria-describedby="emailHelp" class="form-control" id="userId" name="userId" type="text">

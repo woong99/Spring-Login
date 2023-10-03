@@ -1,6 +1,7 @@
 package com.example.formloginwithoutsecurity.controller;
 
 import com.example.formloginwithoutsecurity.common.MessageUtil;
+import com.example.formloginwithoutsecurity.common.RSA;
 import com.example.formloginwithoutsecurity.entity.Auth;
 import com.example.formloginwithoutsecurity.service.AuthService;
 import com.example.formloginwithoutsecurity.vo.AuthVO;
@@ -28,7 +29,8 @@ public class AuthController {
      * @return
      */
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpServletRequest request) {
+        RSA.initRsa(request);
         return "login";
     }
 
@@ -73,7 +75,7 @@ public class AuthController {
     public String login(AuthVO authVO, HttpServletRequest request, ModelMap model) {
         Auth savedAuth;
         try {
-            savedAuth = authService.login(authVO);
+            savedAuth = authService.login(authVO, request);
         } catch (Exception e) {
             return MessageUtil.createMessage("로그인에 실패하였습니다.", "/auth/login", model);
         }
