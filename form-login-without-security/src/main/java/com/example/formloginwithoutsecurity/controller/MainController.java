@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MainController {
 
+    /**
+     * 메인 페이지(일반, 어드민 접근 가능)
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/")
     public String home(HttpServletRequest request) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");

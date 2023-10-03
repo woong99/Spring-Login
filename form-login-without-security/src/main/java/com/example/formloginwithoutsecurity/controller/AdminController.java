@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class AdminController {
 
+    /**
+     * 어드민 페이지
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/")
     public String adminPage(HttpServletRequest request) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");

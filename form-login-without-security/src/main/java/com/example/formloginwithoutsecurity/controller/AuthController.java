@@ -21,6 +21,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /**
+     * 로그인 페이지
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");
@@ -30,6 +36,12 @@ public class AuthController {
         return "login";
     }
 
+    /**
+     * 회원가입 페이지
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/signUp")
     public String signUpPage(HttpServletRequest request) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");
@@ -39,6 +51,14 @@ public class AuthController {
         return "signUp";
     }
 
+    /**
+     * 회원가입 action
+     *
+     * @param authVO
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/signUp.do")
     public String signUp(AuthVO authVO, HttpServletRequest request, ModelMap model) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");
@@ -64,6 +84,14 @@ public class AuthController {
         return "message";
     }
 
+    /**
+     * 로그인 action
+     *
+     * @param authVO
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/login.do")
     public String login(AuthVO authVO, HttpServletRequest request, ModelMap model) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");
@@ -83,6 +111,12 @@ public class AuthController {
         return "redirect:/";
     }
 
+    /**
+     * 로그아웃 action
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/logout.do")
     public String logout(HttpServletRequest request) {
         Auth auth = (Auth) request.getSession().getAttribute("auth");
