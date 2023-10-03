@@ -1,7 +1,5 @@
 package com.example.formloginwithoutsecurity.controller;
 
-import com.example.formloginwithoutsecurity.entity.Auth;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,15 +15,10 @@ public class MainController {
     /**
      * 메인 페이지(일반, 어드민 접근 가능)
      *
-     * @param request
      * @return
      */
     @GetMapping("/")
-    public String home(HttpServletRequest request) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth == null) {
-            return "redirect:/auth/login";
-        }
+    public String home() {
         return "/home";
     }
 }

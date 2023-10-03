@@ -1,8 +1,5 @@
 package com.example.formloginwithoutsecurity.controller;
 
-import com.example.formloginwithoutsecurity.entity.Auth;
-import com.example.formloginwithoutsecurity.entity.Role;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +13,10 @@ public class AdminController {
     /**
      * 어드민 페이지
      *
-     * @param request
      * @return
      */
     @GetMapping("/")
-    public String adminPage(HttpServletRequest request) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth == null || !auth.getRole().equals(Role.ADMIN)) {
-            return "redirect:/";
-        }
+    public String adminPage() {
         return "admin";
     }
 }

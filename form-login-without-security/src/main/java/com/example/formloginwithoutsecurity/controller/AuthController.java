@@ -24,30 +24,20 @@ public class AuthController {
     /**
      * 로그인 페이지
      *
-     * @param request
      * @return
      */
     @GetMapping("/login")
-    public String loginPage(HttpServletRequest request) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth != null) {
-            return "redirect:/";
-        }
+    public String loginPage() {
         return "login";
     }
 
     /**
      * 회원가입 페이지
      *
-     * @param request
      * @return
      */
     @GetMapping("/signUp")
-    public String signUpPage(HttpServletRequest request) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth != null) {
-            return "redirect:/";
-        }
+    public String signUpPage() {
         return "signUp";
     }
 
@@ -55,16 +45,11 @@ public class AuthController {
      * 회원가입 action
      *
      * @param authVO
-     * @param request
      * @param model
      * @return
      */
     @PostMapping("/signUp.do")
-    public String signUp(AuthVO authVO, HttpServletRequest request, ModelMap model) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth != null) {
-            return "redirect:/";
-        }
+    public String signUp(AuthVO authVO, ModelMap model) {
         try {
             authService.signUp(authVO);
         } catch (IllegalArgumentException e) {
@@ -94,10 +79,6 @@ public class AuthController {
      */
     @PostMapping("/login.do")
     public String login(AuthVO authVO, HttpServletRequest request, ModelMap model) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth != null) {
-            return "redirect:/";
-        }
         Auth savedAuth;
         try {
             savedAuth = authService.login(authVO);
@@ -119,10 +100,6 @@ public class AuthController {
      */
     @GetMapping("/logout.do")
     public String logout(HttpServletRequest request) {
-        Auth auth = (Auth) request.getSession().getAttribute("auth");
-        if (auth == null) {
-            return "redirect:/auth/login";
-        }
         request.getSession().removeAttribute("auth");
         return "redirect:/auth/login";
     }
