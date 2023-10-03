@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script th:inline="javascript">
+    const message = [[${message}]];
+    const retType = [[${retType}]];
+    const retUrl = [[${retUrl}]];
+
+    if (retType === "message") {
+        alert(message);
+        location.href = retUrl;
+    }
+</script>
+<body>
+
+</body>
+</html>
